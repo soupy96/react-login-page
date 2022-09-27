@@ -12,9 +12,20 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const identifier = setTimeout(() => {
+      // this code only runs once for each keystroke
+      console.log('Checking form Validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    // you can only return one thing, a function, clean-up function
+    // this runs before each useEffect execution except the very first one
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
   // this useEffect will run when either of the two dependencies are changed. this could be state or props
   // the useEffect will run code in response to an event on screen or something updating. this action is a response to another action
