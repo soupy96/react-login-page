@@ -18,6 +18,9 @@ const Login = (props) => {
   }, [enteredEmail, enteredPassword]);
   // this useEffect will run when either of the two dependencies are changed. this could be state or props
   // the useEffect will run code in response to an event on screen or something updating. this action is a response to another action
+  // we dont need to add state updating functions because React guarantees that they never change
+  // in browser api's like fetch() and local storage dont change cause they're not realted to the react component render cycle
+  // any component-internal variables wouldn't cause the component to be re-evaluated because its defined outside the component
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
