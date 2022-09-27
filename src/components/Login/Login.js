@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 
+import AuthContext from '../../context/auth-context';
 import Card from '../UI/Card/Card';
-import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+
+import classes from './Login.module.css';
 
 // this can be outside the component function because it doesnt need to interact with anything defined inside the component function
 // all the data used in this function will be passed into this function when its executed by React
@@ -42,6 +44,8 @@ const Login = (props) => {
     value: '',
     isValid: null,
   });
+
+  const authCtx = useContext(AuthContext);
 
   // useEffect(() => {
   //   console.log('EFFECT RUNNING');
@@ -110,7 +114,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
