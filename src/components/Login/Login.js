@@ -56,22 +56,28 @@ const Login = (props) => {
   // with a cleanup function it runs before the state function as a whole runs but not before the first time it runs
   // with a cleaup function but no dependencies it'll run on the intial load and when the component is removed
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     // this code only runs once for each keystroke
-  //     console.log('Checking form Validity!');
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  // object destructuring
+  // we assign a alias to the extracted property
+  // isValid is in the emailState object which goes on the left of the colon(:)
+  // we then set w/e value is in isValid in the emailState object to the alias emailIsValid
+  // this can also be used with props
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = emailState;
 
-  //   // you can only return one thing, a function, clean-up function
-  //   // this runs before each useEffect execution except the very first one
-  //   return () => {
-  //     console.log('CLEANUP');
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      // this code only runs once for each keystroke
+      console.log('Checking form Validity!');
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+
+    // you can only return one thing, a function, clean-up function
+    // this runs before each useEffect execution except the very first one
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
   // this useEffect will run when either of the two dependencies are changed. this could be state or props
   // the useEffect will run code in response to an event on screen or something updating. this action is a response to another action
   // we dont need to add state updating functions because React guarantees that they never change
@@ -82,7 +88,7 @@ const Login = (props) => {
     // setEnteredEmail(event.target.value);
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
 
-    setFormIsValid(event.target.value.includes('@') && passwordState.isValid);
+    // setFormIsValid(event.target.value.includes('@') && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
