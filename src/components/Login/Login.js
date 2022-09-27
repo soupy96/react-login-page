@@ -11,6 +11,19 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // useEffect(() => {
+  //   console.log('EFFECT RUNNING');
+
+  //   return () => {
+  //     console.log('EFFECT CLEANUP');
+  //   };
+  // }, [enteredPassword]);
+  // useEffect without a second param runs AFTER every component render cycle
+  // with an empty array the useEffect will only run once and thats when the app starts up
+  // with a dependency it reruns whenever the component is re-evaludated and the state changes
+  // with a cleanup function it runs before the state function as a whole runs but not before the first time it runs
+  // with a cleaup function but no dependencies it'll run on the intial load and when the component is removed
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       // this code only runs once for each keystroke
